@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #0a0a0a;
+  font-family: "Source Code Pro", serif;
+color: #fff;
+transition: backgorund-color .2s ease;
+}
+
+.blocks {
+  width: 100%;
+aspect-ratio: 1/1;
+  background-color: #0A0A0A;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .2s  ease;
+}
+
+.flash {
+  background-color: #ffffffb4 !important;
+
+}
+
+.win-animate{
+  background-color: #30ff30;
+}
+
+.lose-animate{
+  background-color: #ff3030;
+}
+
+ .op-button{
+
+  font-size: large;
+ border: #fff 2px solid;
+ border-radius: 5px;
+ padding: 5px;
+ margin: 5px;
+ cursor: pointer;
+ transition: background-color .2s ease;
+}
+.level-text{
+  transition: font-size .2s ease;
+}
+.level-animate{
+  background-color: #21ff2165;
+  font-size: 4.5rem;
+}

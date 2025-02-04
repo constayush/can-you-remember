@@ -6,6 +6,8 @@ function App() {
   const [randomArr, setRandomArr] = useState<number[]>([]);
   const [userInputArr, setUserInputArr] = useState<number[]>([]);
   const [blockIsClickable, setBlockIsClickable] = useState(true);
+  const [highscore, setHighscore] = useState(0);
+
   const gridRef = useRef(null);
   const [cols, setCols] = useState(3);
   const generate_rn = () => Math.floor(Math.random() * (cols * cols)) + 1;
@@ -13,7 +15,7 @@ function App() {
   const handleClickOnStartBtn = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    document.getElementById('options').style.display = "none";
+    document.getElementById("options").style.display = "none";
     setRandomArr([]);
     setUserInputArr([]);
     setBlockIsClickable(false);
@@ -37,6 +39,9 @@ function App() {
   useEffect(() => {
     if (userInputArr.length === randomArr.length && randomArr.length > 0) {
       if (userInputArr.join() === randomArr.join()) {
+        if (level > highscore) {
+          setHighscore(level);
+        }
         roundOver(true);
         setLevel((prev) => prev + 1);
         setTimeout(async () => {
@@ -46,11 +51,14 @@ function App() {
           setBlockIsClickable(true);
         }, 2000);
       } else {
+        if (level > highscore) {
+          setHighscore(level);
+        }
         roundOver(false);
         setLevel(1);
         setRandomArr([]);
         setUserInputArr([]);
-        const btn = document.getElementById("start-btn");
+        const btn = document.getElementById("options");
         if (btn) btn.style.display = "block";
       }
     }
@@ -76,7 +84,7 @@ function App() {
     return new Promise<void>((resolve) => {
       let rn = generate_rn();
 
-      if(rn === randomArr[randomArr.length - 1]) rn = generate_rn();
+      if (rn === randomArr[randomArr.length - 1]) rn = generate_rn();
       setRandomArr((prevArr) => [...prevArr, rn]);
 
       setTimeout(() => {
@@ -114,15 +122,21 @@ function App() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center flex-col gap-10">
-      <h1 className="text-5xl text-white">
+      <h1 className="text-2xl md:text-5xl text-white text-center">
         Can You Remember? ( Level{" "}
         <span className="italic bg-indigo-800 p-2">{level}</span> )
       </h1>
-
+      <p>Your highscore is {highscore} </p>
       <div className="flex gap-5 justify-around" id="options">
-        <button className="op-button" onClick={() => setCols(3)}>3x3</button>
-        <button className="op-button" onClick={() => setCols(4)}>4x4</button>
-        <button className="op-button" onClick={() => setCols(5)}>5x5</button>
+        <button className="op-button" onClick={() => setCols(3)}>
+          3x3
+        </button>
+        <button className="op-button" onClick={() => setCols(4)}>
+          4x4
+        </button>
+        <button className="op-button" onClick={() => setCols(5)}>
+          5x5
+        </button>
         <button
           id="start-btn"
           onClick={handleClickOnStartBtn}
@@ -136,7 +150,7 @@ function App() {
     grid-cols-5 */}
       <div
         ref={gridRef}
-        className={`w-96 h-96 grid place-items-center grid-cols-${cols} gap-1 p-1 bg-indigo-400 rounded-lg`}
+        className={` w-80 h-80 sm:w-96 sm:h-96 grid place-items-center grid-cols-${cols} gap-1 p-1 bg-indigo-400 rounded-lg`}
       >
         {[...Array(cols * cols)].map((_, i) => (
           <div

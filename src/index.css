@@ -18,7 +18,7 @@ aspect-ratio: 1/1;
   background-color: #0A0A0A;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color .2s  ease;
+  transition: background-color .2s  ease-in;
 }
 
 .flash {

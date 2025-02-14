@@ -12,10 +12,11 @@ function App() {
   const [cols, setCols] = useState(3);
   const generate_rn = () => Math.floor(Math.random() * (cols * cols)) + 1;
 
-  const handleClickOnStartBtn = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    document.getElementById("options").style.display = "none";
+  const handleClickOnStartBtn = async () => {
+    const optionsElement = document.getElementById("options") as HTMLElement | null;
+    if (optionsElement) {
+        optionsElement.style.display = "none";
+    }
     setRandomArr([]);
     setUserInputArr([]);
     setBlockIsClickable(false);
@@ -29,10 +30,28 @@ function App() {
       return;
     }
 
-    const { id } = e.target as HTMLDivElement;
-    e.target.classList.add("flash");
-    setTimeout(() => e.target.classList.remove("flash"), 500);
+    const target = e.target as HTMLDivElement;
 
+    
+    if (!target || !target.id) {
+      console.error("Invalid target or missing id");
+      return;
+    }
+  
+    const { id } = target;
+  
+    // Add the "flash" class
+    target.classList.add("flash");
+  
+    // Remove the "flash" class after 500ms
+    setTimeout(() => {
+      // Check if the target still exists in the DOM
+      if (document.body.contains(target)) {
+        target.classList.remove("flash");
+      }
+    }, 500);
+  
+    // Update the user input array
     setUserInputArr((prev) => [...prev, Number(id)]);
   };
 
@@ -64,7 +83,7 @@ function App() {
     }
   }, [userInputArr]);
 
-  const animatePrevTiles = async () => {
+  const animatePrevTiles = async (): Promise<void> => {
     setUserInputArr([]);
     for (const rn of randomArr) {
       const tile = document.getElementById(rn.toString());
@@ -73,7 +92,7 @@ function App() {
         await new Promise((resolve) =>
           setTimeout(() => {
             tile.classList.remove("flash");
-            resolve();
+            resolve("finish animating");
           }, 500)
         );
       }
@@ -82,7 +101,7 @@ function App() {
 
   const animateRandomTiles = async () => {
     return new Promise<void>((resolve) => {
-      let rn = generate_rn();
+      let rn: number = generate_rn();
 
       if (rn === randomArr[randomArr.length - 1]) rn = generate_rn();
       setRandomArr((prevArr) => [...prevArr, rn]);
@@ -104,7 +123,7 @@ function App() {
     const animationClass = isWin ? "win-animate" : "lose-animate";
 
     setTimeout(() => {
-      randomArr.forEach((e, index) => {
+      randomArr.forEach((e) => {
         const tile = document.getElementById(e.toString());
         if (tile) {
           tile.classList.add(animationClass);
@@ -147,7 +166,8 @@ function App() {
       </div>
       {/* grid-cols-3
     grid-cols-4
-    grid-cols-5 */}
+    grid-cols-5
+    grid-col-10 */}
       <div
         ref={gridRef}
         className={` w-80 h-80 sm:w-96 sm:h-96 grid place-items-center grid-cols-${cols} gap-1 p-1 bg-indigo-400 rounded-lg`}

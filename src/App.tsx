@@ -29,29 +29,21 @@ function App() {
       console.log("Not clickable while animating");
       return;
     }
-
     const target = e.target as HTMLDivElement;
-
     
     if (!target || !target.id) {
       console.error("Invalid target or missing id");
       return;
     }
-  
     const { id } = target;
-  
-    // Add the "flash" class
     target.classList.add("flash");
-  
-    // Remove the "flash" class after 500ms
     setTimeout(() => {
-      // Check if the target still exists in the DOM
+ 
       if (document.body.contains(target)) {
         target.classList.remove("flash");
       }
     }, 500);
   
-    // Update the user input array
     setUserInputArr((prev) => [...prev, Number(id)]);
   };
 
@@ -93,7 +85,7 @@ function App() {
           setTimeout(() => {
             tile.classList.remove("flash");
             resolve("finish animating");
-          }, 500)
+          }, 600)
         );
       }
     }
@@ -140,13 +132,13 @@ function App() {
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center flex-col gap-10">
-      <h1 className="text-2xl md:text-5xl text-white text-center">
+    <div className="min-w-screen min-h-screen flex justify-center items-center flex-col gap-10">
+      <h1 className="text-xl md:text-5xl text-white text-center">
         Can You Remember? ( Level{" "}
         <span className="italic bg-indigo-800 p-2">{level}</span> )
       </h1>
       <p>Your highscore is {highscore} </p>
-      <div className="flex gap-5 justify-around" id="options">
+      <div className="flex gap-8 justify-around" id="options">
         <button className="op-button" onClick={() => setCols(3)}>
           3x3
         </button>
@@ -159,7 +151,7 @@ function App() {
         <button
           id="start-btn"
           onClick={handleClickOnStartBtn}
-          className="border-3 cursor-pointer bg-indigo-500 p-4 rounded-xl"
+          className="border-3  cursor-pointer bg-indigo-500 p-4 rounded-xl"
         >
           Start
         </button>
@@ -167,10 +159,10 @@ function App() {
       {/* grid-cols-3
     grid-cols-4
     grid-cols-5
-    grid-col-10 */}
+  */}
       <div
         ref={gridRef}
-        className={` w-80 h-80 sm:w-96 sm:h-96 grid place-items-center grid-cols-${cols} gap-1 p-1 bg-indigo-400 rounded-lg`}
+        className={` w-60 h-60 sm:w-96 sm:h-96 grid place-items-center grid-cols-${cols} gap-1 p-1 bg-indigo-400 rounded-lg`}
       >
         {[...Array(cols * cols)].map((_, i) => (
           <div

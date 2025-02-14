@@ -9,7 +9,7 @@ body {
   background-color: #0a0a0a;
   font-family: "Source Code Pro", serif;
 color: #fff;
-transition: backgorund-color .2s ease;
+transition: backgorund-color .6s ease-in-out;
 }
 
 .blocks {
@@ -35,14 +35,26 @@ aspect-ratio: 1/1;
 }
 
  .op-button{
-
   font-size: large;
  border: #fff 2px solid;
- border-radius: 5px;
+
  padding: 5px;
  margin: 5px;
  cursor: pointer;
- transition: background-color .2s ease;
+ transition: all .2s ease;
+}
+.op-button:hover{
+  background-color: rgb(51, 15, 255);
+  color: #fff;
+  border-radius: 100%;
+}
+#start-btn{
+  transition: all .3s ease;
+}
+
+#start-btn:hover{
+  padding: 4px;
+  background-color: rgb(51, 15, 255);
 }
 .level-text{
   transition: font-size .2s ease;

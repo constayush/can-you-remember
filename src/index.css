@@ -7,13 +7,13 @@ body {
   box-sizing: border-box;
   min-height: 100vh;
   background-color: #0a0a0a;
-  font-family: "Source Code Pro", serif;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 color: #fff;
 transition: backgorund-color .6s ease-in-out;
 }
 
 .blocks {
-  width: 100%;
+  width: 50%;
 aspect-ratio: 1/1;
   background-color: #0A0A0A;
   border-radius: 5px;
@@ -37,23 +37,24 @@ aspect-ratio: 1/1;
  .op-button{
   font-size: large;
  border: #fff 2px solid;
-
- padding: 5px;
+border-radius: .5rem;
+ padding: 25px;
  margin: 5px;
  cursor: pointer;
  transition: all .2s ease;
 }
 .op-button:hover{
+ 
   background-color: rgb(51, 15, 255);
   color: #fff;
-  border-radius: 100%;
+  
 }
 #start-btn{
   transition: all .3s ease;
 }
 
 #start-btn:hover{
-  padding: 4px;
+
   background-color: rgb(51, 15, 255);
 }
 .level-text{
